@@ -1,0 +1,54 @@
+{
+  "name": "laravel-bbmcore",
+  "description": "Plantilla para proyetos con tema MaterialAdmin.",
+  "main": "",
+  "authors": [
+    "José Manuel Ruiz Pérez"
+  ],
+  "license": "EULA",
+  "moduleType": [
+    "amd"
+  ],
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "bower": "*",
+    "install": "~1.0.4",
+    "material-design-iconic-font": "^2.2.0",
+    "Waves": "fians/Waves#^0.7.5",
+    "jquery": "1.9",
+    "bootstrap": "^3.3.7",
+    "malihu-custom-scrollbar-plugin": "^3.1.5",
+    "lodash": "~3.10.0",
+    "backbone": "~1.1.2",
+    "marionette": "~2.4.1",
+    "requirejs": "~2.1.17",
+    "swig": "~1.*",
+    "form-params": null,
+    "fontawesome": "~4.6.3",
+    "bootstrap-switch": "~3.0",
+    "messenger": "~1.4.0",
+    "jquery-file-upload": null,
+    "bootstrap-modal": null,
+    "numeraljs": "1.5.*",
+    "backbone.wreqr": "~1.3.2",
+    "backbone-fetch-cache": null,
+    "backbone.obscura": null,
+    "backbone-validation": null,
+    "fecha": "~0.2.1",
+    "sweetalert": "^1.1.3",
+    "gmap3": "^7.1.0",
+    "jquery-ui": "^1.11.4",
+    "moment": "^2.14.1",
+    "bootstrap-daterangepicker": "https://github.com/dangrossman/bootstrap-daterangepicker.git#^2.1.24",
+    "Chart.js": "chartjs#^2.1.6",
+    "animate.css": "^3.5.2",
+    "Flot": "flot#^0.8.3",
+    "flot.curvedlines": "^1.1.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.45"
+  },
+  "resolutions": {
+    "jquery": "1.9",
+    "bootstrap": "^3.3.7"
+  }
+}

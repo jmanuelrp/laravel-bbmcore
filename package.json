@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "devDependencies": {
+    "grunt-bbamd_generate": "git@github.com:jmanuelrp/bb-amd-generator.git#bbm-core",
+    "grunt-contrib-watch": "0.5.3"
+  },
+  "dependencies": {
+    "grunt": "0.4.1",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-jp-swig": "~0.1.3",
+    "grunt-legacy-util": "^1.0.0",
+    "grunt-contrib-requirejs": "^0.4.4"
+  }
+}

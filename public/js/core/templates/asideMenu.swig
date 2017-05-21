@@ -1,0 +1,3 @@
+{% block items %}
+	<!-- content -->
+{% endblock %}
