@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "jmanuelrp/laravel-bbmcore",
+    "description": "The Laravel Framework with Backbone an Marionette",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
