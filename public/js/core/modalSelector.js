@@ -17,7 +17,9 @@ define([
 
 	_.extend(ModalSelector.prototype, Backbone.Events, {
 		show: function (options) {
-			options = options || {};
+			options = _.defaults(options || {}, {
+				focusSearch: true
+			});
 
 			if (! this._modal_created) {
 				this._createSelector();
@@ -31,7 +33,9 @@ define([
 				keyboard: true
 			}));
 
-			this.selector.focusSearch();
+			if (options.focusSearch) {
+				this.selector.focusSearch();
+			}
 
 			return this;
 		},
