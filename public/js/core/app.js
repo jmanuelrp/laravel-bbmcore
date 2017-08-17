@@ -42,7 +42,17 @@ define([
 			return _.get(this.attributes, attr);
 		},
 
-		urlFront: function () {}
+		urlFront: function () {},
+
+		destroy: function (options) {
+			if (options.data) {
+				options.data = JSON.stringify(options.data);
+			}
+
+			options.contentType = 'application/json';
+
+			return Backbone.Model.prototype.destroy.call(this, options);
+		}
 	});
 
 	App.Collection = Backbone.Collection.extend({

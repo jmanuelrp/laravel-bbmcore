@@ -87,10 +87,18 @@ define([
 			return this.selector.fetch(options);
 		},
 
+		clearSelection: function () {
+			this.selector.clean();
+		},
+
 		setEventName: function (event_name) {
 			this.event_name = event_name;
 
 			return this;
+		},
+
+		getSelection: function () {
+			return this.selector.getSelection();
 		},
 
 		setSelector: function (selector) {
@@ -107,10 +115,6 @@ define([
 			}
 
 			return this;
-		},
-
-		clearSelection: function () {
-			this.selector.clearSelection();
 		}
 	});
 

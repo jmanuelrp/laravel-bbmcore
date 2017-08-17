@@ -20,7 +20,7 @@
 				<a class="{% if _page != page %}btn-go-page waves-effect{% endif %}" data-page="{{ _page }}">
 					{{ _page }}
 					{% if _page == page %}
-						/ {{ no_pages }}
+						<small class="f-10">/{{ no_pages }}</small>
 					{% endif %}
 				</a>
 			</li>

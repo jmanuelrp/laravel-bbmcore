@@ -6,7 +6,7 @@
 		<form class="ah-search form-search">
 			<input type="search" placeholder="Buscar..." class="ahs-input inp-search">
 
-			<i class="ahs-close" data-ma-action="action-header-close" title="Ver menú">&times;</i>
+			<i class="ahs-close" data-ma-action="action-header-close">&times;</i>
 		</form>
 		<ul class="actions">
 			{% if refresh_btn == 1 %}
@@ -46,4 +46,4 @@
 	</div>
 
 	<div class="container-region"></div>
-	<div class="pagination-region"></div>
+	<div class="pagination-region clearfix"></div>

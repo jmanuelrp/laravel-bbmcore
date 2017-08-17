@@ -111,6 +111,26 @@ function (bus, templates, swig, _, numeral, fecha, moment) {
 		return moment(input, parse).add(extra_days, 'day').fromNow();
 	});
 
+	swig.setFilter('momentParse', function (input, format, parse) {
+		format = format || 'LL';
+		parse = parse || 'YYYY-MM-DD HH:mm';
+
+		return moment(input, parse);
+	});
+
+	swig.setFilter('momentIs', function (date, tipo, fecha, precision) {
+		switch (tipo) {
+			case 'before': return date.isBefore(fecha, precision);
+			case 'after': return date.isAfter(fecha, precision);
+		}
+	});
+
+	swig.setFilter('diffFrom', function (date, tipo, fecha) {
+		fecha = moment(fecha);
+
+		return fecha.diff(date, tipo || 'days');
+	});
+
 	swig.setFilter('percent', function (input) {
 		return input ? input / 100 : 0;
 	});

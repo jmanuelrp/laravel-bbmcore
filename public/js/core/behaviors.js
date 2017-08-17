@@ -10,7 +10,8 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 				show: function () {},
 				form: function () {}
 			},
-			serializeForm: null
+			serializeForm: null,
+			preventSubmit: false
 		},
 
 		ui: {
@@ -23,7 +24,7 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 			'click .btn-edit'	 : 'setEditView',
 			'click @ui.btnCancel' : 'setShowView',
 			'click @ui.btnSave'   : 'saveEvent',
-			'submit @ui.form'	 : 'saveEvent'
+			'submit @ui.form'	 : 'submitEvent'
 		},
 
 		modelEvents: {
@@ -122,6 +123,15 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 			e.preventDefault();
 
 			this.performSave();
+		},
+
+		submitEvent: function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			if (! this.getOption('preventSubmit')) {
+				this.performSave();
+			}
 		},
 
 		performSave: function () {
@@ -412,6 +422,29 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 		}
 	});
 
+	Behaviors.ButtonValues = Marionette.Behavior.extend({
+		ui: {
+			btnSetValue: '.btn-set-value'
+		},
+
+		events: {
+			'click @ui.btnSetValue': 'performUpdate'
+		},
+
+		performUpdate: function (event) {
+			var data = event.currentTarget.dataset,
+			    model_data = {};
+
+			_.set(model_data, data.modelAttribute, data.modelValue);
+
+			this.view.model.save(model_data, {
+				wait: true
+			})
+			.fail(bus.alert.response)
+			.done(this.view.render.bind(this.view));
+		}
+	});
+
 	Behaviors.Form = Marionette.Behavior.extend({
 		defaults: {
 			autosave: true,
@@ -420,7 +453,8 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 			options: {},
 			serializeForm: null,
 			silent: false,
-			validation: function () {}
+			validation: function () {},
+			listen_submit: true
 		},
 
 		ui: {
@@ -429,10 +463,17 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 			btnCancel: '.btn-cancel'
 		},
 
-		events: {
-			'click @ui.btnCancel': 'cancelFormEvent',
-			'click @ui.btnSave'  : 'saveModelEvent',
-			'submit @ui.form'    : 'saveModelEvent'
+		events: function () {
+			var events = {
+				'click @ui.btnCancel': 'cancelFormEvent',
+				'click @ui.btnSave'  : 'saveModelEvent'
+			};
+
+			if (this.getOption('listen_submit')) {
+				events['submit @ui.form'] = 'saveModelEvent'
+			}
+
+			return events;
 		},
 
 		cancelFormEvent: function (e) {
@@ -742,6 +783,7 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 
 	Behaviors.ToggleRegions = Marionette.Behavior.extend({
 		defaults: {
+			active: null,
 			regions: []
 		},
 
@@ -755,22 +797,41 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 				regions = this.getOption('regions');
 
 			_.forEach(regions, function (name) {
-				var region = this.view.getRegion(name);
-
-				if (! region) { return; }
-
-				if (region_name == name)
-				{
-					this.view.trigger('before:show:'+region_name, region);
-					region.$el.fadeIn();
-					this.view.trigger('show:'+region_name, region);
-				}
-				else
-				{
-					region.$el.hide();
-					this.view.trigger('hide:'+region_name, region);
+				if (region_name == name) {
+					this.setActiveRegion(name);
+				} else {
+					this.setInactiveRegion(name);
 				}
 			}, this);
+		},
+
+		setActiveRegion: function (name) {
+			var region = this.view.getRegion(name);
+
+			if (region) {
+				this.view.trigger('before:show:'+name, region);
+				region.$el.fadeIn();
+				this.view.trigger('show:'+name, region);
+
+				this.view.trigger('toggleregion:active', name, region);
+			}
+		},
+
+		setInactiveRegion: function (name) {
+			var region = this.view.getRegion(name);
+
+			if (region) {
+				region.$el.hide();
+				this.view.trigger('hide:'+name, region);
+			}
+		},
+
+		onRender: function () {
+			var active_region = this.getOption('active');
+
+			if (active_region) {
+				this.setActiveRegion(active_region);
+			}
 		}
 	});
 
@@ -995,7 +1056,7 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 
 				setTimeout(_.bind(function () {
 					this.formModal.$("input:text:visible:first").focus();
-				}, this), 600);
+				}, this), 500);
 			} else {
 				this.showFormRegion();
 			}

@@ -11,7 +11,7 @@
 
 			<i class="ahs-close" data-ma-action="action-header-close">&times;</i>
 		</div>
-		<ul class="actions">
+		<ul class="actions" style="z-index: 14">
 			{% block actions %}
 				<li>
 					<a class="cursor-pointer" data-ma-action="action-header-open">
@@ -32,7 +32,7 @@
 			{% block dropdown-menu %}
 				<li class="dropdown">
 					<a href="" data-toggle="dropdown">
-						<i class="zmdi zmdi-more-vert"></i>
+						<i class="zmdi zmdi-menu"></i>
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right">
