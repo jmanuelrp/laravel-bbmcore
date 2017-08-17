@@ -74,12 +74,14 @@ function (bus, _, Backbone, Oscura, App, PControls) {
 
 		childViewOptions: function () {
 			return {
+				template: this.modelTemplate,
 				itemTemplate: this.itemTemplate,
 				autoselect: this.autoselect
 			};
 		},
 
 		initialize: function (options) {
+			this.modelTemplate = options.modelTemplate;
 			this.itemTemplate = options.itemTemplate;
 			this.autoselect = options.autoselect;
 		}
@@ -166,6 +168,7 @@ function (bus, _, Backbone, Oscura, App, PControls) {
 		renderCollection: function () {
 			this.mainRegion.show(new CollectionView({
 				collection: this.collection,
+				modelTemplate: this.getOption('modelTemplate'),
 				itemTemplate: this.getOption('itemTemplate'),
 				autoselect: this.getOption('mode') != 'multiple'
 			}));
