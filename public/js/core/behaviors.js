@@ -470,7 +470,7 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 			};
 
 			if (this.getOption('listen_submit')) {
-				events['submit @ui.form'] = 'saveModelEvent'
+				events['submit @ui.form'] = 'saveModelEvent';
 			}
 
 			return events;
@@ -1097,6 +1097,87 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 			if (collection) {
 				collection.add(model);
 			}
+		}
+	});
+
+	Behaviors.FormModal = Marionette.Behavior.extend({
+		defaults: {
+			FormView: null,
+			btnAction: '.btn-edit',
+			title: 'Editar',
+			eventName: 'update:model',
+			formOptions: function () {
+				return {
+					model: this.model
+				};
+			}
+		},
+
+		ui: function () {
+			return {
+				btnAction: this.getOption('btnAction')
+			};
+		},
+
+		events: {
+			'click @ui.btnAction' : 'onClickBtnEdit'
+		},
+
+		renderFormView: function () {
+			var FormView = this.getOption('FormView'),
+			    options = this.getOptionResult('formOptions');
+
+			var form_view = new FormView(options);
+
+			this.setViewModal(form_view);
+		},
+
+		setViewModal: function (form_view) {
+			var self = this;
+
+			require(['modal'], function (modal) {
+				var _modal = modal.newInstance({
+					data: {
+						title: self.getOptionResult('title'),
+						hide_footer: true
+					}
+				})
+				.setContent(form_view)
+				.show();
+
+				self.listenTo(form_view, 'form:cancel', function () {
+					_modal.close();
+				});
+
+				self.listenTo(form_view, 'form:model:save', function (model) {
+					_modal.close();
+
+					this.view.render();
+
+					this.view.trigger(this.getOption('eventName'), model);
+				});
+
+				setTimeout(function () {
+					_modal.$("input:text:visible:first").focus();
+				}, 500);
+			});
+		},
+
+		onClickBtnEdit: function (e) {
+			e.stopPropagation();
+
+			this.renderFormView();
+		},
+
+		getOptionResult: function (option) {
+			var value = this.getOption(option);
+
+			if (_.isFunction(value))
+			{
+				return value.call(this.view);
+			}
+
+			return value;
 		}
 	});
 
