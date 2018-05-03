@@ -11,9 +11,26 @@
 |
 */
 
-Route::middleware('auth')->get('/', function () {
-    return view('app');
+Route::middleware('auth')->group(function ()
+{
+	Route::get('/', function () {
+		return view('app');
+	});
+
+	Route::get('me', function ()
+	{
+		$user = auth()->user();
+
+		return $user;
+	});
 });
 
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
+if (! env('ALLOW_REGISTRATION', false)) {
+	Route::any('/register', function() {
+		return redirect('/');
+	});
+}
+
+Route::middleware('auth')->get('logs', 'LogViewerController@showLogs');

@@ -1,4 +1,5 @@
 <div class="card">
+	{% block header %}
 		<div class="action-header clearfix">
 			{% block button %}
 			{% endblock %}
@@ -41,11 +42,13 @@
 				{% endblock %}
 			</ul>
 		</div>
+	{% endblock %}
 
 	{% block form %}
 		<div class="collection-form list-group lg-odd-black item-hidden"></div>
 	{% endblock %}
 
+	{% block content-header %}
 	<div class="list-group">
 		<div class="list-group-item media hidden-xs">
 			<div class="row media-body {{ _media_body_class_ }}">
@@ -54,8 +57,11 @@
 			</div>
 		</div>
 	</div>
+	{% endblock %}
 
 	<div class="collection-main list-group lg-odd-black"></div>
 
-	<div class="pagination-region clearfix"></div>
+	{% block footer %}
+		<div class="pagination-region clearfix"></div>
+	{% endblock %}
 </div>

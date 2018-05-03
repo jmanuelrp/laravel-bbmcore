@@ -55,7 +55,7 @@ define([
 			}
 
 			this.modal.addCloseButton({
-				label: 'Cerrar',
+				label: _.get(this.options, 'close_lbl', 'Cerrar'),
 				type: 'link'
 			});
 

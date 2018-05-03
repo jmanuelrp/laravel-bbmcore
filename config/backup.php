@@ -3,6 +3,7 @@
 return [
 
     'backup' => [
+        'run_at' => env('BACKUP_RUN_AT', '04:00'),
 
         /*
          * The name of this application. You can use this name to monitor
@@ -49,14 +50,14 @@ return [
         /*
          * The database dump can be gzipped to decrease diskspace usage.
          */
-        'gzip_database_dump' => false,
+        'gzip_database_dump' => true,
 
         'destination' => [
 
             /*
              * The filename prefix used for the backup zip file.
              */
-            'filename_prefix' => '',
+            'filename_prefix' => env('BACKUP_DESTINATION_FILENAME_PREFIX'),
 
             /*
              * The disk names on which the backups will be stored.
@@ -77,12 +78,12 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class         => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class        => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class     => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class   => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class    => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class         => ['slack'],
+            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => ['slack'],
+            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class        => ['slack'],
+            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class     => ['slack'],
+            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class   => ['slack'],
+            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class    => ['slack'],
         ],
 
         /*
@@ -92,11 +93,11 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'contacto@apdevs.com',
+            'to' => env('BACKUP_NOTIFICATIONS_MAIL_TO'),
         ],
 
         'slack' => [
-            'webhook_url' => '',
+            'webhook_url' => env('BACKUP_SLACK_WEBHOOK_URL'),
 
             /*
              * If this is set to null the default channel of the webhook will be used.
@@ -134,6 +135,8 @@ return [
     ],
 
     'cleanup' => [
+        'run_at' => env('BACKUP_CLEAN_AT', '03:30'),
+
         /*
          * The strategy that will be used to cleanup old backups. The default strategy
          * will keep all backups for a certain amount of days. After that period only

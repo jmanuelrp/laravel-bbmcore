@@ -1,7 +1,9 @@
 module.exports = function (grunt) {
 
 	var js_dir = 'public/js/',
-		app_modules = ['core', 'sucursales'];
+		app_modules = [
+			'core',
+		];
 
 	grunt.initConfig({
 		bbamd_generate: {
@@ -45,7 +47,12 @@ module.exports = function (grunt) {
 						'id',
 						'sum',
 						'moment',
-						'fromnow'
+						'fromnow',
+						'diffFrom',
+						'momentParse',
+						'momentIs',
+						'contains',
+						'replace',
 					]
 				},
 				files: {

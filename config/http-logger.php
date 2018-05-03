@@ -12,7 +12,7 @@ return [
      * The log writer used to write the request to a log.
      * It should implement `LogWriter`.
      */
-    'log_writer' => \Spatie\HttpLogger\DefaultLogWriter::class,
+    'log_writer' => \App\Http\Logger\LogWriter::class,
 
     /*
      * Filter out body fields which will never be logged.
@@ -21,5 +21,5 @@ return [
         'password',
         'password_confirmation',
     ],
-    
+
 ];

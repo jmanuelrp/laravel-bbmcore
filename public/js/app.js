@@ -7,25 +7,25 @@ define([
 	// 'sucursales/router',
 ], function (bus, $, admintheme, Backbone, Marionette) {
 
-	var estudios = new Marionette.Application();
+	var app = new Marionette.Application();
 
-	estudios.addRegions({
+	app.addRegions({
 		mainRegion: '#main-container-region', //'#main-container',
-		titleRegion: '#main-title-region', //'#estudios-content-title'
+		titleRegion: '#main-title-region', //'#app-content-title'
 		userRegion: '#user-region', //'#user-panel',
 		menuRegion: '#menu-region', //'#sidebar-menus',
 		searchRegion: '#search-region', //'#sidebar-search-form',
 
 		// No configurados...
 		// sidebarRegion: '#sidebar-region', //'#sidebar'
-		// breadcrumbsRegion: '#breadcrumbs-region' //'#estudios-breadcrumb'
+		// breadcrumbsRegion: '#breadcrumbs-region' //'#app-breadcrumb'
 	});
 
 	bus.reqres.setHandler('get:region', function (name) {
-		return estudios.getRegion(name + 'Region');
+		return app.getRegion(name + 'Region');
 	});
 
-	estudios.on('start', function () {
+	app.on('start', function () {
 
 		var user = bus.reqres.request('get:login:user');
 
@@ -40,11 +40,11 @@ define([
 		// bus.commands.execute('start:breadcrumbs');
 	});
 
-	estudios.listenTo(bus.events, 'show:view:done', function (options) {
+	app.listenTo(bus.events, 'show:view:done', function (options) {
 		$('body').removeClass('sidebar-toggled');
 		$('.ma-backdrop').remove();
 		$('.sidebar, .ma-trigger').removeClass('toggled');
 	});
 
-	return estudios;
+	return app;
 });

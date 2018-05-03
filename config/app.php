@@ -119,6 +119,17 @@ return [
     |
     */
 
+    /*
+    |--------------------------------------------------------------------------
+    | Assets Version
+    |--------------------------------------------------------------------------
+    |
+    | Files version parameter to avoid browsers cache
+    |
+    */
+
+    'js_file_version' => env('APP_JS_FILE_VERSION', time()),
+
     'providers' => [
 
         /*

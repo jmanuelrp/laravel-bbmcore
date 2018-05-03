@@ -11,7 +11,7 @@
 
 			<i class="ahs-close" data-ma-action="action-header-close">&times;</i>
 		</div>
-		<ul class="actions" style="z-index: 14">
+		<ul class="actions">
 			{% block actions %}
 				<li>
 					<a class="cursor-pointer" data-ma-action="action-header-open">

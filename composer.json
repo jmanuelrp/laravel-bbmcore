@@ -2,7 +2,7 @@
     "name": "jmanuelrp/laravel-bbmcore",
     "description": "The Laravel Framework with Backbone an Marionette",
     "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "license": "EULA",
     "type": "project",
     "require": {
         "php": "^7.1.3",
