@@ -4,17 +4,17 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ env('SITENAME', 'LARAVEL-BBMCORE') }}</title>
+        <title>{{ config('app.name', 'LARAVEL-BBMCORE') }}</title>
 
         <!-- Vendor CSS -->
         <link href="./js/vendor/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
         {{-- <link href="./js/vendor/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet"> --}}
-		<link href="./js/vendor/animate.css/animate.min.css" rel="stylesheet">
+        <link href="./js/vendor/animate.css/animate.min.css" rel="stylesheet">
         <link href="./js/vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="./js/vendor/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
         <link href="./js/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet">
-		<link href="./js/vendor/messenger/build/css/messenger.css" rel="stylesheet">
-		<link href="./js/vendor/messenger/build/css/messenger-theme-flat.css" rel="stylesheet">
+        <link href="./js/vendor/messenger/build/css/messenger.css" rel="stylesheet">
+        <link href="./js/vendor/messenger/build/css/messenger-theme-flat.css" rel="stylesheet">
         <link href="./js/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
         <!-- CSS -->
@@ -25,7 +25,11 @@
     </head>
 
     <body>
-        <header id="header" class="clearfix" data-ma-theme="blue">
+        @if (config('app.env') == 'production')
+            <header id="header" class="clearfix" data-ma-theme="teal">
+        @else
+            <header id="header" class="clearfix" data-ma-theme="blue">
+        @endif
             <ul class="h-inner">
                 <li class="hi-trigger ma-trigger" data-ma-action="sidebar-open" data-ma-target="#sidebar">
                     <div class="line-wrap">
@@ -36,7 +40,7 @@
                 </li>
 
                 <li class="hi-logo hidden-xs">
-                    <a href="/">{{ env('SITENAME', 'LARAVEL-BBMCORE') }}</a>
+                    <a href="/">{{ config('app.name', 'LARAVEL-BBMCORE') }}</a>
                 </li>
             </ul>
 
@@ -79,10 +83,10 @@
                 </div>
 
                 <navigation id="menu-region">
-					<ul class="main-menu">
-						<li><a href="#"><i class="zmdi zmdi-home"></i> Inicio</a></li>
-					</ul>
-				</navigation>
+                    <ul class="main-menu">
+                        <li><a href="#"><i class="zmdi zmdi-home"></i> Inicio</a></li>
+                    </ul>
+                </navigation>
             </aside>
 
             <section id="content">
@@ -91,10 +95,10 @@
         </section>
 
         <footer id="footer"></footer>
-		<div class='flot-tooltip' class='chart-tooltip'></div>
+        <div class='flot-tooltip' class='chart-tooltip'></div>
 
         <!-- Javascript Libraries -->
         @include('requireconfig')
-		<script src="/js/vendor/requirejs/require.js"></script>
+        <script src="/js/vendor/requirejs/require.js"></script>
     </body>
   </html>

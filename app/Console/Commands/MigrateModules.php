@@ -39,7 +39,7 @@ class MigrateModules extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function fire()
     {
         $migrations_path = join(DIRECTORY_SEPARATOR, [
             storage_path(), 'modules_migrations', ''
@@ -54,7 +54,7 @@ class MigrateModules extends Command
             $directory = $module->getExtraPath(join(DIRECTORY_SEPARATOR, [
                 'Database', 'Migrations'
             ]));
-            
+
             $files = scandir($directory);
 
             $files = array_filter($files, function ($file) {

@@ -141,6 +141,14 @@ function (bus, templates, swig, _, numeral, fecha, moment) {
 		}, 0);
 	});
 
+	swig.setFilter('contains', function (items, value) {
+		return _.contains(items, value);
+	});
+
+	swig.setFilter('replace', function (input, searchvalue, newvalue) {
+		return input.replace(searchvalue, newvalue);
+	});
+
 	function getTemplate(template) {
 		if (_.isFunction(template))
 		{

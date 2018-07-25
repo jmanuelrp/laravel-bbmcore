@@ -1,7 +1,7 @@
 <script>
 	require = {
 		baseUrl: "js",
-		urlArgs: "rc={{ env('JS_FILES_VERSION', '1.0.0') }}", /* Incrementar valor para forzar carga de cache */
+		urlArgs: "jsfv={{ config('app.js_file_version') }}",
 		"paths": {
 			"jquery"     : "vendor/jquery/jquery.min",
 			"jqueryui"   : "vendor/jquery-ui/jquery-ui.min",

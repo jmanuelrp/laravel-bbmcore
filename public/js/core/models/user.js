@@ -1,10 +1,10 @@
 define(['msgBus', 'backbone'], function (bus, Backbone) {
 
-	var admins = ['developer', 'empleado'],
+	var admins = ['admin'],
 		toJSON = Backbone.Model.prototype.toJSON;
 
 	var User = Backbone.Model.extend({
-		urlRoot: '/api/v1/login-user',
+		urlRoot: '/me',
 
 		// It's a helper function, not a permission manager,
 		// permissions are defined and resolved on server side.

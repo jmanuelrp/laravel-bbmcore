@@ -2,7 +2,7 @@ define([], function () {
 
 	var iframe;
 
-	return function (url) {
+	function printOnFrame (url) {
 		if (! iframe) {
 			iframe = iframe = document.createElement('iframe');
 
@@ -12,11 +12,17 @@ define([], function () {
 				setTimeout(function () {
 					iframe.focus();
 					iframe.contentWindow.print();
-				}, 1);
+				}, 1000);
 			};
 		}
 
 		iframe.src = url;
-	};
+	}
+
+	function printOnTab(url) {
+		window.open(url).focus();
+	}
+
+	return printOnTab;
 
 });

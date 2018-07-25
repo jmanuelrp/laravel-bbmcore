@@ -39,7 +39,7 @@ class MigrateModulesRollback extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function fire()
     {
         $migrations_path = storage_path().DIRECTORY_SEPARATOR.'modules_migrations'.DIRECTORY_SEPARATOR;
 
