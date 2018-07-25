@@ -1,5 +1,5 @@
 <!-- Modal Default -->
-<div class="modal-dialog">
+<div class="modal-dialog {{ modal_type|default('') }}">
 	<div class="modal-content">
 		<div class="modal-header">
 			{% if closable == 1 %}

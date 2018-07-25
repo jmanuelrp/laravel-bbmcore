@@ -1036,6 +1036,7 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 			require(['modal'], function (modal) {
 				self.formModal = modal.newInstance({
 					data: {
+						modal_type: self.getOption('modal_type'),
 						title: self.getOption('title'),
 						hide_footer: true
 					}
@@ -1138,6 +1139,7 @@ define(['msgBus', 'jquery', 'underscore', 'marionette', 'oscura'], function (bus
 			require(['modal'], function (modal) {
 				var _modal = modal.newInstance({
 					data: {
+						modal_type: self.getOption('modal_type'),
 						title: self.getOptionResult('title'),
 						hide_footer: true
 					}
